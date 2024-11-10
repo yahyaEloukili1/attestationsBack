@@ -11,17 +11,15 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.example.demo.entities.AgentAutorite;
 import com.example.demo.entities.Annexe;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Endroit;
-import com.example.demo.projections.AgentAutoriteProjection;
+import com.example.demo.entities.Fonction;
+import com.example.demo.entities.FonctionHommeAUtorite;
 import com.example.demo.projections.AnnexeProjection;
 import com.example.demo.projections.EndroitProjection;
-import com.example.demo.projections.HommeAutoriteProjection;
 
 @CrossOrigin(origins = "*")
-@RepositoryRestResource(excerptProjection = AgentAutoriteProjection.class)
-public interface AgentAutoriteRepository extends JpaRepository<AgentAutorite, Integer> {
-
+public interface FonctionHommeAutoriteRepostitory extends JpaRepository<FonctionHommeAUtorite, Integer> {
+	
 }

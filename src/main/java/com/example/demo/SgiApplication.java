@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.demo.dao.AnnexeRepository;
 import com.example.demo.dao.CategorieRepository;
 import com.example.demo.dao.DistrictRepository;
+import com.example.demo.dao.FonctionHommeAutoriteRepostitory;
 import com.example.demo.dao.FonctionRepostitory;
 import com.example.demo.dao.PachalikRepository;
 import com.example.demo.dao.RoleRepository;
@@ -27,6 +28,7 @@ import com.example.demo.entities.AppUser;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.District;
 import com.example.demo.entities.Fonction;
+import com.example.demo.entities.FonctionHommeAUtorite;
 import com.example.demo.entities.Pachalik;
 import com.example.demo.entities.Quartier;
 import com.example.demo.entities.Sex;
@@ -57,6 +59,8 @@ public class SgiApplication implements CommandLineRunner {
 	@Autowired
 	FonctionRepostitory fonctionRepostitory;
 	@Autowired
+	FonctionHommeAutoriteRepostitory fonctionHommeAutoriteRepostitory;
+	@Autowired
 	@Lazy
 	private com.example.demo.services.AccountService accountService;
 	@Bean
@@ -84,20 +88,32 @@ public class SgiApplication implements CommandLineRunner {
 		restConfiguration.exposeIdsFor(AppRole.class);
 		restConfiguration.exposeIdsFor(Sex.class);
 		restConfiguration.exposeIdsFor(Situation.class);
-		restConfiguration.exposeIdsFor(CategorieRepository.class);
-		restConfiguration.exposeIdsFor(AnnexeRepository.class);
-		restConfiguration.exposeIdsFor(DistrictRepository.class);
-		restConfiguration.exposeIdsFor(UserRepository.class);
-		restConfiguration.exposeIdsFor(RoleRepository.class);
+		
 		restConfiguration.exposeIdsFor(Fonction.class);
+		restConfiguration.exposeIdsFor(FonctionHommeAUtorite.class);
 
 		if(!fonctionRepostitory.findById(1).isPresent()) {
-			Fonction s1 = new Fonction("قائد");
-			Fonction s2 = new Fonction("باشا");
-			Fonction s3 = new Fonction("مقدم");
+
+			Fonction s1 = new Fonction("مقدم");
+			Fonction s2 = new Fonction("خليفة");
+			Fonction s3 = new Fonction("شيخ");
+			
 			fonctionRepostitory.save(s1);
 			fonctionRepostitory.save(s2);
 			fonctionRepostitory.save(s3);
+			
+		}
+		if(!fonctionHommeAutoriteRepostitory.findById(1).isPresent()) {
+		
+			FonctionHommeAUtorite s1 = new FonctionHommeAUtorite("قائد");
+			FonctionHommeAUtorite s2 = new FonctionHommeAUtorite("باشا");
+			FonctionHommeAUtorite s3 = new FonctionHommeAUtorite("عامل");
+			FonctionHommeAUtorite s4 = new FonctionHommeAUtorite("الوالي");
+			
+			fonctionHommeAutoriteRepostitory.save(s1);
+			fonctionHommeAutoriteRepostitory.save(s2);
+			fonctionHommeAutoriteRepostitory.save(s3);
+			fonctionHommeAutoriteRepostitory.save(s4);
 			
 		}
 		

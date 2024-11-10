@@ -15,13 +15,14 @@ import com.example.demo.entities.AgentAutorite;
 import com.example.demo.entities.Annexe;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Endroit;
-import com.example.demo.projections.AgentAutoriteProjection;
+import com.example.demo.entities.HommeAutorite;
 import com.example.demo.projections.AnnexeProjection;
+import com.example.demo.projections.CitoyenProjection;
 import com.example.demo.projections.EndroitProjection;
 import com.example.demo.projections.HommeAutoriteProjection;
 
 @CrossOrigin(origins = "*")
-@RepositoryRestResource(excerptProjection = AgentAutoriteProjection.class)
-public interface AgentAutoriteRepository extends JpaRepository<AgentAutorite, Integer> {
+@RepositoryRestResource(excerptProjection = HommeAutoriteProjection.class)
+public interface HommeAutoriteRepository extends JpaRepository<HommeAutorite, Integer> {
 
 }
