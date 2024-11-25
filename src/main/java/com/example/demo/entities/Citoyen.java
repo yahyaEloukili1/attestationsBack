@@ -34,6 +34,11 @@ public class Citoyen {
 	private String cin1;
 	private String cin2;
 	private String acteNaissance;
+	@OneToMany(mappedBy = "citoyen")
+	private List<Attestation> attestations;
+	public List<Attestation> getAttestations() {
+		return attestations;
+	}
 	@ManyToOne()
 	@JsonIgnore
 	private Sex sex;

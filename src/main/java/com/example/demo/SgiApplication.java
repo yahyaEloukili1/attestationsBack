@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import com.example.demo.dao.AnnexeRepository;
+import com.example.demo.dao.AttestationRepository;
 import com.example.demo.dao.CategorieRepository;
 import com.example.demo.dao.DistrictRepository;
 import com.example.demo.dao.FonctionHommeAutoriteRepostitory;
@@ -21,10 +22,12 @@ import com.example.demo.dao.PachalikRepository;
 import com.example.demo.dao.RoleRepository;
 import com.example.demo.dao.SexRepository;
 import com.example.demo.dao.SituationRepository;
+import com.example.demo.dao.TypeAttestationRepository;
 import com.example.demo.dao.UserRepository;
 import com.example.demo.entities.Annexe;
 import com.example.demo.entities.AppRole;
 import com.example.demo.entities.AppUser;
+import com.example.demo.entities.Attestation;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.District;
 import com.example.demo.entities.Fonction;
@@ -33,6 +36,7 @@ import com.example.demo.entities.Pachalik;
 import com.example.demo.entities.Quartier;
 import com.example.demo.entities.Sex;
 import com.example.demo.entities.Situation;
+import com.example.demo.entities.TypeAttestation;
 
 
 @SpringBootApplication
@@ -56,6 +60,10 @@ public class SgiApplication implements CommandLineRunner {
 	private SexRepository sexRepository;
 	@Autowired
 	private SituationRepository situationRepository;
+	@Autowired
+	private AttestationRepository attestationRepository;
+	@Autowired
+	private TypeAttestationRepository typeAttestationRepository;
 	@Autowired
 	FonctionRepostitory fonctionRepostitory;
 	@Autowired
@@ -88,6 +96,7 @@ public class SgiApplication implements CommandLineRunner {
 		restConfiguration.exposeIdsFor(AppRole.class);
 		restConfiguration.exposeIdsFor(Sex.class);
 		restConfiguration.exposeIdsFor(Situation.class);
+		restConfiguration.exposeIdsFor(Attestation.class);
 		
 		restConfiguration.exposeIdsFor(Fonction.class);
 		restConfiguration.exposeIdsFor(FonctionHommeAUtorite.class);
@@ -101,6 +110,17 @@ public class SgiApplication implements CommandLineRunner {
 			fonctionRepostitory.save(s1);
 			fonctionRepostitory.save(s2);
 			fonctionRepostitory.save(s3);
+			
+		}
+		if(!typeAttestationRepository.findById(1).isPresent()) {
+
+			TypeAttestation s1 = new TypeAttestation("شهادة إدارية");
+			TypeAttestation s2 = new TypeAttestation("شهادة السكنى");
+			TypeAttestation s3 = new TypeAttestation("عقد الإزدياد");
+			
+			typeAttestationRepository.save(s1);
+			typeAttestationRepository.save(s2);
+			typeAttestationRepository.save(s3);
 			
 		}
 		if(!fonctionHommeAutoriteRepostitory.findById(1).isPresent()) {
