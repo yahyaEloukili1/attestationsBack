@@ -25,7 +25,14 @@ public class Attestation {
 	@ManyToOne()
 	@JsonIgnore	
 	private Citoyen citoyen;
+	private String cin;
 
+	public String getCin() {
+		return cin;
+	}
+	public void setCin(String cin) {
+		this.cin = cin;
+	}
 	@ManyToOne()
 	@JsonIgnore	
 	private TypeAttestation typeAttestation;
