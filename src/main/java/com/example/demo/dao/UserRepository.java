@@ -33,7 +33,6 @@ public interface UserRepository extends JpaRepository<AppUser, Integer> {
 	 @Query("SELECT e FROM AppUser e WHERE e.cin = :cin")
 	 List<AppUser> findByCin2(@Param("cin") String cin);
 
-	
 	  @Query("select a from AppUser a where a.role.id = :appRoleId")
 	    Page<AppUser> findAppUsersByRoleId(@Param("appRoleId") Integer appRoleId, Pageable pageable);
 	  
@@ -47,6 +46,16 @@ public interface UserRepository extends JpaRepository<AppUser, Integer> {
 		        @Param("annexeId") Integer annexeId, 
 		        @Param("roleId") Integer roleId, Pageable pageable
 		);
+
+
+	  @Query("SELECT e FROM AppUser e " +
+		       "WHERE (:annexeId IS NULL OR e.annexe.id = :annexeId) " +
+		       "AND (:roleId IS NULL OR e.role.id = :roleId)")
+		List<AppUser> findByAnnexeIdAndAppRoleId2(
+		        @Param("annexeId") Integer annexeId, 
+		        @Param("roleId") Integer roleId
+		);
+	
 	  @Query("SELECT e FROM AppUser e " +
 		       "WHERE (:roleId IS NULL OR e.role.id = :roleId) " +
 		       "AND (:pachalikId IS NULL OR e.pachalik.id = :pachalikId) " +
@@ -72,13 +81,7 @@ public interface UserRepository extends JpaRepository<AppUser, Integer> {
 		        
 		);
 
-	  @Query("SELECT e FROM AppUser e " +
-		       "WHERE (:annexeId IS NULL OR e.annexe.id = :annexeId) " +
-		       "AND (:roleId IS NULL OR e.role.id = :roleId)")
-		List<AppUser> findByAnnexeIdAndAppRoleId2(
-		        @Param("annexeId") Integer annexeId, 
-		        @Param("roleId") Integer roleId
-		);
+
 
 	 List<AppUser> findByUsername(String username);
 	 List<AppUser> findByEmail(String email);

@@ -12,6 +12,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.demo.entities.Annexe;
+import com.example.demo.entities.AppUser;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Endroit;
 import com.example.demo.projections.AnnexeProjection;
@@ -27,5 +28,8 @@ public interface AnnexeRepository extends JpaRepository<Annexe, Integer> {
 	public Page<Annexe> findByDesignationContainsIgnoreCase(@Param("mc") String pr,Pageable peaPageable);
 	
 	  @Query("select a from Annexe a where a.district.id = :districtId")
-	    List<Annexe> findAnnexesByDistrictId(@Param("districtId") Integer districtId);
+	    List<Annexe> findAnnexesByDistrictId2(@Param("districtId") Integer districtId);
+	  @Query("select a from Annexe a where a.district.id = :districtId")
+	    Page<Annexe> findAnnexesByDistrictId(@Param("districtId") Integer districtId,Pageable pageable);
+	  
 }
