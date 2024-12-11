@@ -27,9 +27,9 @@ public interface AnnexeRepository extends JpaRepository<Annexe, Integer> {
 	@RestResource(path= "/byAnnexePage")
 	public Page<Annexe> findByDesignationContainsIgnoreCase(@Param("mc") String pr,Pageable peaPageable);
 	
-	  @Query("select a from Annexe a where a.district.id = :districtId")
+	@Query("SELECT a FROM Annexe a WHERE (:districtId IS NULL OR a.district.id = :districtId)")
 	    List<Annexe> findAnnexesByDistrictId2(@Param("districtId") Integer districtId);
-	  @Query("select a from Annexe a where a.district.id = :districtId")
+	@Query("SELECT a FROM Annexe a WHERE (:districtId IS NULL OR a.district.id = :districtId)")
 	    Page<Annexe> findAnnexesByDistrictId(@Param("districtId") Integer districtId,Pageable pageable);
 	  
 }

@@ -12,6 +12,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.demo.entities.Annexe;
+import com.example.demo.entities.AppUser;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Endroit;
 import com.example.demo.entities.Quartier;
@@ -22,5 +23,10 @@ import com.example.demo.projections.EndroitProjection;
 public interface QuartierRepository extends JpaRepository<Quartier, Integer> {
 	
 
-	List<Quartier> findByDesignationContainsIgnoreCase(@Param("designation") String designation);
+
+	@Query("SELECT e FROM Quartier e WHERE e.designationFr LIKE %:designationFr%")
+ Page<Quartier> findByDesignationFr(String designationFr, Pageable pageable);
+	 
+	
+	 List<Quartier> findByDesignationFrContainsIgnoreCase(@Param("designationFr") String designationFr);
 }
