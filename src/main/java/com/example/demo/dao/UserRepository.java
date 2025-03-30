@@ -80,13 +80,12 @@ public interface UserRepository extends JpaRepository<AppUser, Integer> {
 		        @Param("annexeId") Integer annexeId
 		        
 		);
-
-
-
+		 @Query("SELECT e FROM AppUser e WHERE e.username = :username")
 	 List<AppUser> findByUsername(String username);
 	 List<AppUser> findByEmail(String email);
 	 List<AppUser> findByPhone(String phone);
-	 AppUser findAppUsersByUsername(String username);
+	 
+	AppUser findAppUsersByUsername(String username);
 	 boolean existsByCin(String cin);
 
 

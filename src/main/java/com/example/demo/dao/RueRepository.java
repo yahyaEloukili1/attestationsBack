@@ -27,9 +27,10 @@ import com.example.demo.projections.RueProjection;
 public interface RueRepository extends JpaRepository<Rue, Integer> {
 
 	
-	  @Query("select a from Rue a where a.quartier.id = :quartierId")
-	    List<Rue> findRuesByQuartierId(@Param("quartierId") Integer quartierId);
-	  
-	  @Query("select a from Rue a where a.quartier.id = :quartierId")
-	    Page<Rue> findRuesByQuartierId2(@Param("quartierId") Integer quartierId,Pageable pageable);
+	@Query("SELECT r FROM Rue r WHERE (:quartierId IS NULL OR r.quartier.id = :quartierId)")
+	List<Rue> findRuesByQuartierId2(@Param("quartierId") Integer quartierId);
+
+	@Query("SELECT r FROM Rue r WHERE (:quartierId IS NULL OR r.quartier.id = :quartierId)")
+	Page<Rue> findRuesByQuartierId(@Param("quartierId") Integer quartierId, Pageable pageable);
+
 }

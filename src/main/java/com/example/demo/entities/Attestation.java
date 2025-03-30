@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -42,7 +43,7 @@ public class Attestation {
 	private AgentAutorite agentAutorite;
 
 	private String but;
-	@CreatedDate
+	@CreationTimestamp
 	private Date createdAt;
 	public Attestation() {
 		super();
@@ -70,10 +71,11 @@ public class Attestation {
 	public void setCitoyen(Citoyen citoyen) {
 		this.citoyen = citoyen;
 	}
-	
+	@JsonIgnore
 	public TypeAttestation getTypeAttestation() {
 		return typeAttestation;
 	}
+	@JsonProperty
 	public void setTypeAttestation(TypeAttestation typeAttestation) {
 		this.typeAttestation = typeAttestation;
 	}

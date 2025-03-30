@@ -81,7 +81,7 @@ public class ResourceController {
 	 @GetMapping(path = "/photoUser/{id}", produces = {org.springframework.http.MediaType.IMAGE_JPEG_VALUE, org.springframework.http.MediaType.IMAGE_PNG_VALUE})
 	public byte[] getPhoto(@PathVariable("id") int id)throws Exception{
 		AppUser u = userRepository.findById(id).get();
-		return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/attestations/"+u.getPhotoName()));
+		return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/attestationUsers/"+u.getPhotoName()));
 		
 	}
 	@PostMapping("/report5")
@@ -102,7 +102,7 @@ public class ResourceController {
 	public void uploadPhoto(MultipartFile file,@PathVariable int id) throws Exception {
 		AppUser u = userRepository.findById(id).get();
 		u.setPhotoName(id+".png");
-		Files.write(Paths.get(System.getProperty("user.home")+"/attestations"), file.getBytes());
+		Files.write(Paths.get(System.getProperty("user.home")+"/attestationUsers"), file.getBytes());
 	
 	}
 	@PostMapping(path = "/uploadPhoto")
@@ -153,7 +153,7 @@ public class ResourceController {
 	            // Save the user's photo
 	            existingUser.setPhotoName(existingUser.getId() + ".jpg");
 	            userRepository.save(existingUser);
-	            Files.write(Paths.get(System.getProperty("user.home") + "/attestations/" + existingUser.getPhotoName()), file.getBytes());
+	            Files.write(Paths.get(System.getProperty("user.home") + "/attestationUsers/" + existingUser.getPhotoName()), file.getBytes());
 
 	            // You can return something here if needed
 	            return;
@@ -175,7 +175,7 @@ public class ResourceController {
 	    userRepository.save(savedUser);
 
 	    // Save the user's photo
-	    Files.write(Paths.get(System.getProperty("user.home") + "/attestations/" + savedUser.getPhotoName()), file.getBytes());
+	    Files.write(Paths.get(System.getProperty("user.home") + "/attestationUsers/" + savedUser.getPhotoName()), file.getBytes());
 	}
 	
 	
@@ -252,14 +252,14 @@ public void setImages(Citoyen existingUser,   @RequestPart("file") MultipartFile
 		   // Save the user's photo
 	    existingUser.setPhotoName(existingUser.getId() + ".jpg");
 	    
-	    Files.write(Paths.get(System.getProperty("user.home") + "/attestations/" + existingUser.getPhotoName()), file.getBytes());
+	    Files.write(Paths.get(System.getProperty("user.home") + "/citoyens/" + existingUser.getPhotoName()), file.getBytes());
 	}
 		
 	if(fileExtrait!=null) {
 		   // Save the user's photo
 	 existingUser.setActeNaissance(existingUser.getId() + ".jpg");
 	 
-	 Files.write(Paths.get(System.getProperty("user.home") + "/acteNaissance/" + existingUser.getActeNaissance()), fileExtrait.getBytes());
+	 Files.write(Paths.get(System.getProperty("user.home") + "/acteNaissances/" + existingUser.getActeNaissance()), fileExtrait.getBytes());
 	}
 	if(fileCin1!=null) {
 		   // Save the user's photo
@@ -293,44 +293,6 @@ public void setImages(Citoyen existingUser,   @RequestPart("file") MultipartFile
 
 	   // return ResponseEntity.ok(response);
 	   // }
-	    @Autowired
-	    private RueRepository rueRepository; // Assuming you have an AnnexRepository
-
-	    @GetMapping("/quartiers2/{quartierId}/rues")
-	    public ResponseEntity<CustomRueResponse> getRuesPaged(
-	            @PathVariable Integer quartierId,
-	            @RequestParam(defaultValue = "0") int page,
-	            @RequestParam(defaultValue = "10") int size) {
-
-	        PageRequest pageRequest = PageRequest.of(page, size);
-	        Page<Rue> annexPage = rueRepository.findRuesByQuartierId2(quartierId, pageRequest);
-
-	        CustomRueResponse response = new CustomRueResponse();
-	        response.setRues(annexPage.getContent());
-	        response.setTotalElements(annexPage.getTotalElements());
-
-	        return ResponseEntity.ok(response);
-	    }
-	    
-	    @Autowired
-	    private RuelleRepository ruelleRepository; // Assuming you have an AnnexRepository
-
-	    @GetMapping("/rues2/{rueId}/ruelles")
-	    public ResponseEntity<CustomRuelleResponse> getRuesllePaged(
-	            @PathVariable Integer rueId,
-	            @RequestParam(defaultValue = "0") int page,
-	            @RequestParam(defaultValue = "10") int size) {
-
-	        PageRequest pageRequest = PageRequest.of(page, size);
-	        Page<Ruelle> annexPage = ruelleRepository.findRuellesByRueId2(rueId, pageRequest);
-
-	        CustomRuelleResponse response = new CustomRuelleResponse();
-	        response.setRuelles(annexPage.getContent());
-	        response.setTotalElements(annexPage.getTotalElements());
-
-	        return ResponseEntity.ok(response);
-	    }
-
 
 		   @Autowired
 		    private UserRepository userrRepository; // Assuming you have an AnnexRepository

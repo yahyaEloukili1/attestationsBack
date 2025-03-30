@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class AgentAutorite {
@@ -16,8 +18,11 @@ public class AgentAutorite {
 	private int id;
 
 	private String nom;
+	 @Column(unique = true)
 	private String cin;
-	
+	@ManyToOne()
+	@JsonIgnore	
+	private Annexe annexe;
 	public AgentAutorite(String nom, String cin, String prenom) {
 		super();
 		this.nom = nom;
@@ -35,7 +40,7 @@ public class AgentAutorite {
 
 	private String prenom;
 	@ManyToOne()
-	
+	@JsonIgnore	
 	private Fonction fonction;
 
 	public AgentAutorite() {
@@ -43,11 +48,20 @@ public class AgentAutorite {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AgentAutorite(String nom, String prenom, Fonction fonction) {
+	public AgentAutorite(String nom, String prenom, Fonction fonction,Annexe annexe) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.fonction = fonction;
+		this.annexe = annexe;
+	}
+@JsonIgnore
+	public Annexe getAnnexe() {
+		return annexe;
+	}
+@JsonProperty
+	public void setAnnexe(Annexe annexe) {
+		this.annexe = annexe;
 	}
 
 	public int getId() {
@@ -73,11 +87,11 @@ public class AgentAutorite {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-
+	@JsonIgnore
 	public Fonction getFonction() {
 		return fonction;
 	}
-
+@JsonProperty
 	public void setFonction(Fonction fonction) {
 		this.fonction = fonction;
 	}

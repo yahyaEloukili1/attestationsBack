@@ -24,6 +24,7 @@ import com.example.demo.dao.SexRepository;
 import com.example.demo.dao.SituationRepository;
 import com.example.demo.dao.TypeAttestationRepository;
 import com.example.demo.dao.UserRepository;
+import com.example.demo.entities.AgentAutorite;
 import com.example.demo.entities.Annexe;
 import com.example.demo.entities.AppRole;
 import com.example.demo.entities.AppUser;
@@ -34,6 +35,8 @@ import com.example.demo.entities.Fonction;
 import com.example.demo.entities.FonctionHommeAUtorite;
 import com.example.demo.entities.Pachalik;
 import com.example.demo.entities.Quartier;
+import com.example.demo.entities.Rue;
+import com.example.demo.entities.Ruelle;
 import com.example.demo.entities.Sex;
 import com.example.demo.entities.Situation;
 import com.example.demo.entities.TypeAttestation;
@@ -96,9 +99,15 @@ public class SgiApplication implements CommandLineRunner {
 		restConfiguration.exposeIdsFor(AppRole.class);
 		restConfiguration.exposeIdsFor(Sex.class);
 		restConfiguration.exposeIdsFor(Situation.class);
+		restConfiguration.exposeIdsFor(Rue.class);
+		restConfiguration.exposeIdsFor(Ruelle.class);
 		restConfiguration.exposeIdsFor(Attestation.class);
 		
+		restConfiguration.exposeIdsFor(AgentAutorite.class);
+		
 		restConfiguration.exposeIdsFor(Fonction.class);
+		restConfiguration.exposeIdsFor(TypeAttestation.class);
+		
 		restConfiguration.exposeIdsFor(FonctionHommeAUtorite.class);
 
 		if(!fonctionRepostitory.findById(1).isPresent()) {

@@ -37,6 +37,16 @@ public class Annexe {
 	@OneToMany(mappedBy = "annexe")
 	
 	private List<Citoyen> citoyens;
+	@OneToMany(mappedBy = "annexe")
+private List<AgentAutorite> agents;
+	public List<Citoyen> getCitoyens() {
+		return citoyens;
+	}
+
+	public List<AgentAutorite> getAgents() {
+		return agents;
+	}
+
 	public Annexe() {
 		super();
 		// TODO Auto-generated constructor stub

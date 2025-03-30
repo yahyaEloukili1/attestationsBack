@@ -15,6 +15,7 @@ import com.example.demo.entities.AgentAutorite;
 import com.example.demo.entities.Annexe;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Endroit;
+import com.example.demo.entities.Rue;
 import com.example.demo.projections.AgentAutoriteProjection;
 import com.example.demo.projections.AnnexeProjection;
 import com.example.demo.projections.EndroitProjection;
@@ -23,5 +24,11 @@ import com.example.demo.projections.HommeAutoriteProjection;
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(excerptProjection = AgentAutoriteProjection.class)
 public interface AgentAutoriteRepository extends JpaRepository<AgentAutorite, Integer> {
+
+	@Query("SELECT a FROM AgentAutorite a WHERE (:annexeId IS NULL OR a.annexe.id = :annexeId)")
+	List<AgentAutorite> findAgentAutoritesByAnnexeId2(@Param("annexeId") Integer annexeId);
+
+	@Query("SELECT a FROM AgentAutorite a WHERE (:annexeId IS NULL OR a.annexe.id = :annexeId)")
+	Page<AgentAutorite> findAgentAutoritesByAnnexeId(@Param("annexeId") Integer annexeId, Pageable pageable);
 
 }

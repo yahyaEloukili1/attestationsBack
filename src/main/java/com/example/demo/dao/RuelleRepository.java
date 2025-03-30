@@ -27,8 +27,9 @@ import com.example.demo.projections.RuelleProjection;
 public interface RuelleRepository extends JpaRepository<Ruelle, Integer> {
 
 	
-	  @Query("select a from Ruelle a where a.rue.id = :rueId")
-	    Page<Ruelle> findRuellesByRueId2(@Param("rueId") Integer rueId, Pageable pageable);
-	  @Query("select a from Ruelle a where a.rue.id = :rueId")
-	    List<Ruelle> findRuellesByRueId(@Param("rueId") Integer rueId);
+	@Query("SELECT r FROM Ruelle r WHERE (:rueId IS NULL OR r.rue.id = :rueId)")
+	List<Ruelle> findRuellesByRueId2(@Param("rueId") Integer rueId);
+
+	@Query("SELECT r FROM Ruelle r WHERE (:rueId IS NULL OR r.rue.id = :rueId)")
+	Page<Ruelle> findRuellesByRueId(@Param("rueId") Integer rueId, Pageable pageable);
 }
